@@ -57,6 +57,33 @@ class FulfillableOrder {
         }
         echo "\n";
     }
+
+    public function printTable() : void {
+        foreach ($this->orderList as $item) {
+            if ($this->stock->{$item['product_id']} >= $item['quantity']) {
+                foreach ($this->headerList as $header) {
+                    if ($header == 'priority') {
+                        echo str_pad($this->getPriorityText($item['priority']), 20);
+                    } else {
+                        echo str_pad($item[$header], 20);
+                    }
+                }
+                echo "\n";
+            }
+        }
+    }
+
+    private function getPriorityText(string $priority) : string {
+        if ($priority == 1) {
+            return 'low';
+        } else {
+            if ($priority == 2) {
+                return 'medium';
+            } else {
+                return 'high';
+            }
+        }
+    }
     
 }
 ?>

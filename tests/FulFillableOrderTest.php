@@ -55,6 +55,14 @@ class FulfillableOrderTest extends TestCase {
         $this->fulfillableOrder->readOrderList();
         $this->expectOutputString("================================================================================\n", $this->fulfillableOrder->printSeparator());
     }
+
+    public function testPriorityText() : void {
+        $reflectionMethod = new ReflectionMethod('FulfillableOrder', 'getPriorityText');
+        $reflectionMethod->setAccessible(true);
+        $this->assertEquals('low', $reflectionMethod->invokeArgs(new FulfillableOrder(), array('1')));
+        $this->assertEquals('medium', $reflectionMethod->invokeArgs(new FulfillableOrder(), array('2')));
+        $this->assertEquals('high', $reflectionMethod->invokeArgs(new FulfillableOrder(), array('3')));
+    }
     
 }
 ?>
