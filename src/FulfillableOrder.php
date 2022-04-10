@@ -50,6 +50,13 @@ class FulfillableOrder {
         }
         echo "\n";
     }
+
+    public function printSeparator() : void {
+        foreach ($this->headerList as $header) {
+            echo str_repeat('=', 20);
+        }
+        echo "\n";
+    }
     
 }
 ?>
