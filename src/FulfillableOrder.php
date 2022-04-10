@@ -43,6 +43,13 @@ class FulfillableOrder {
             return $priority == 0 ? $item1['created_at'] <=> $item2['created_at'] : $priority;
         });
     }
+
+    public function printTableHeader() : void {
+        foreach ($this->headerList as $header) {
+            echo str_pad($header, 20);
+        }
+        echo "\n";
+    }
     
 }
 ?>

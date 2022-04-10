@@ -45,6 +45,11 @@ class FulfillableOrderTest extends TestCase {
             $this->assertArrayHasKey('created_at', $values);
         }
     }
+
+    public function testPrintHeader() : void {
+        $this->fulfillableOrder->readOrderList();
+        $this->expectOutputString("product_id          quantity            priority            created_at          \n", $this->fulfillableOrder->printTableHeader());
+    }
     
 }
 ?>
