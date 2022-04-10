@@ -56,6 +56,14 @@ class FulfillableOrderTest extends TestCase {
         $this->expectOutputString("================================================================================\n", $this->fulfillableOrder->printSeparator());
     }
 
+    public function testPrintTable() : void {
+        $this->fulfillableOrder->validateJSON('{"1":8,"2":4,"3":5}');
+        $this->fulfillableOrder->readOrderList();
+        $this->fulfillableOrder->sortOrderList();
+
+        $this->expectOutputString("3                   5                   high                2021-03-23 05:01:29 \n1                   2                   high                2021-03-25 14:51:47 \n2                   1                   medium              2021-03-21 14:00:26 \n1                   8                   medium              2021-03-22 09:58:09 \n3                   1                   medium              2021-03-22 12:31:54 \n1                   6                   low                 2021-03-21 06:17:20 \n2                   4                   low                 2021-03-22 17:41:32 \n2                   2                   low                 2021-03-24 11:02:06 \n3                   2                   low                 2021-03-24 12:39:58 \n1                   1                   low                 2021-03-25 19:08:22 \n", $this->fulfillableOrder->printTable());
+    }
+
     public function testPriorityText() : void {
         $reflectionMethod = new ReflectionMethod('FulfillableOrder', 'getPriorityText');
         $reflectionMethod->setAccessible(true);
