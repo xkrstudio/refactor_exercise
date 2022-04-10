@@ -24,6 +24,26 @@ class FulfillableOrderTest extends TestCase {
     public function testInvalidJSON() : void {
         $this->expectOutputString('Invalid json!', $this->fulfillableOrder->validateJSON('invalid data'));
     }
+
+    public function testReadOrderList() : void {
+        $this->assertFileExists('orders.csv');
+
+        $this->fulfillableOrder->readOrderList();
+
+        $reflector = new ReflectionClass(FulfillableOrder::class);
+
+        $property = $reflector->getProperty('orderList');
+        $property->setAccessible(true);
+
+        $orderList = $property->getValue($this->fulfillableOrder);
+
+        foreach ($orderList as $values) {
+            $this->assertArrayHasKey('product_id', $values);
+            $this->assertArrayHasKey('quantity', $values);
+            $this->assertArrayHasKey('priority', $values);
+            $this->assertArrayHasKey('created_at', $values);
+        }
+    }
     
 }
 ?>
