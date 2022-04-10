@@ -36,6 +36,13 @@ class FulfillableOrder {
             fclose($handle);
         }
     }
+
+    public function sortOrderList() : void {
+        usort($this->orderList, function ($item1, $item2) {
+            $priority = -1 * ($item1['priority'] <=> $item2['priority']);
+            return $priority == 0 ? $item1['created_at'] <=> $item2['created_at'] : $priority;
+        });
+    }
     
 }
 ?>

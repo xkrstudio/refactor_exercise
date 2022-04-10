@@ -29,6 +29,7 @@ class FulfillableOrderTest extends TestCase {
         $this->assertFileExists('orders.csv');
 
         $this->fulfillableOrder->readOrderList();
+        $this->fulfillableOrder->sortOrderList();
 
         $reflector = new ReflectionClass(FulfillableOrder::class);
 
